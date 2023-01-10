@@ -7,7 +7,8 @@ import * as dat from 'lil-gui';
  * Base
  */
 // Debug
-const gui = new dat.GUI({ width: 400 });
+const gui = new dat.GUI();
+gui.close(); // Collapses/Minimises the debug menu upon opening.
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
@@ -155,7 +156,9 @@ gui
   .step(0.01)
   .onFinishChange(generateGalaxy);
 
-gui.add(parameters, 'spinDirection', { Clockwise: 1, CounterClockWise: -1 }).onFinishChange(generateGalaxy);
+gui
+  .add(parameters, 'spinDirection', { Clockwise: 1, CounterClockWise: -1 })
+  .onFinishChange(generateGalaxy);
 
 gui
   .add(parameters, 'randomness')
