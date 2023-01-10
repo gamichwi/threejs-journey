@@ -24,6 +24,8 @@ parameters.size = 0.01;
 parameters.radius = 5;
 parameters.branches = 3;
 parameters.spin = 1;
+parameters.spinSpeed = 0.01;
+parameters.spinDirection = -1; // Galaxies spin with the direction of their arms
 parameters.randomness = 0.2;
 parameters.randomnessPower = 3;
 parameters.insideColor = '#ff6030';
@@ -147,6 +149,15 @@ gui
   .onFinishChange(generateGalaxy);
 
 gui
+  .add(parameters, 'spinSpeed')
+  .min(0)
+  .max(1)
+  .step(0.01)
+  .onFinishChange(generateGalaxy);
+
+gui.add(parameters, 'spinDirection', { Clockwise: 1, CounterClockWise: -1 }).onFinishChange(generateGalaxy);
+
+gui
   .add(parameters, 'randomness')
   .min(0)
   .max(2)
@@ -222,6 +233,8 @@ const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
+
+  points.rotation.y += 0.01 * parameters.spinSpeed * parameters.spinDirection; // speed and spin of the galaxy
 
   // Update controls
   controls.update();
