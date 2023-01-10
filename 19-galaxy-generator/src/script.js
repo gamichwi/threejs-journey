@@ -270,3 +270,4 @@ window.addEventListener('dblclick', () => {
 });
 
 tick();
+console.log(parameters.spinDirection);
