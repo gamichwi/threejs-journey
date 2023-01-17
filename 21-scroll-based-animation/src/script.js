@@ -92,11 +92,19 @@ adjustObjectProperties();
 
 window.addEventListener('resize', adjustObjectProperties);
 
+let resizeTimeout;
+
+// Attempt to fix the object movement and jumping when browser displays the url bar
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(adjustObjectProperties, 250);
+});
+
 scene.add(mesh1, mesh2, mesh3);
 
 const sectionMeshes = [mesh1, mesh2, mesh3];
 
-/**
+/**git add
  * Particles
  */
 // Geometry
