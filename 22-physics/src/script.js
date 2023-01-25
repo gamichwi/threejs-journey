@@ -91,26 +91,12 @@ const environmentMapTexture = cubeTextureLoader.load([
 /**
  * Physics
  */
+
 // World
 const world = new CANNON.World();
 world.broadphase = new CANNON.SAPBroadphase(world); // Checks collisions less but improves performance. Default is Naive which tests everything.
 world.allowSleep = true; // If an object is stationary it won't be tested improving performance
 world.gravity.set(0, -9.82, 0); // Fun fact, -9.82 is the gravity on earth
-
-// Materials
-// const concreteMaterial = new CANNON.Material('concrete');
-// const plasticMaterial = new CANNON.Material('plastic');
-
-// const concretePlasticContactMaterial = new CANNON.ContactMaterial(
-// 	concreteMaterial,
-// 	plasticMaterial,
-// 	{
-// 		friction: 0.1,
-// 		restitution: 0.7,
-// 	}
-// );
-
-// world.addContactMaterial(concretePlasticContactMaterial);
 
 // Simplifying the creation of two materials and replacing that with a single material
 const defaultMaterial = new CANNON.Material('default');
@@ -126,36 +112,6 @@ const defaultContactMaterial = new CANNON.ContactMaterial(
 
 world.addContactMaterial(defaultContactMaterial);
 world.defaultContactMaterial = defaultContactMaterial;
-
-// // Sphere
-// const sphereShape = new CANNON.Sphere(0.5);
-// const sphereBody = new CANNON.Body({
-// 	mass: 1,
-// 	position: new CANNON.Vec3(0, 3, 0),
-// 	shape: sphereShape,
-// 	// material: plasticMaterial
-// });
-// sphereBody.applyLocalForce(
-// 	new CANNON.Vec3(150, 0, 0),
-// 	new CANNON.Vec3(0, 0, 0)
-// );
-// world.addBody(sphereBody);
-
-/**
- * Test sphere
- */
-// const sphere = new THREE.Mesh(
-// 	new THREE.SphereGeometry(0.5, 32, 32),
-// 	new THREE.MeshStandardMaterial({
-// 		metalness: 0.3,
-// 		roughness: 0.4,
-// 		envMap: environmentMapTexture,
-// 		envMapIntensity: 0.5,
-// 	})
-// );
-// sphere.castShadow = true;
-// sphere.position.y = 0.5;
-// scene.add(sphere);
 
 /**
  * Floor
@@ -183,8 +139,6 @@ const floor = new THREE.Mesh(
 floor.receiveShadow = true;
 floor.rotation.x = -Math.PI * 0.5;
 scene.add(floor);
-
-
 
 /**
  * Lights
@@ -330,12 +284,6 @@ const createBox = (width, height, depth, position) => {
 // createBox(1, 1.5, 2, { x: 0, y: 3, z: 0 })
 
 /**
- * Gravity
- */
-
-
-
-/**
  * Animate
  */
 const clock = new THREE.Clock();
@@ -355,7 +303,6 @@ const tick = () => {
 	for (const object of objectsToUpdate) {
 		object.mesh.position.copy(object.body.position);
 		object.mesh.quaternion.copy(object.body.quaternion);
-		// console.log(object.body.position)
 
 		// check if the object is outside of the boundary
     if(object.mesh.position.y < -150) {
@@ -366,8 +313,6 @@ const tick = () => {
       // remove the object from the objectsToUpdate array
       const index = objectsToUpdate.indexOf(object);
       objectsToUpdate.splice(index, 1);
-
-			console.log('removed')
     }
 	}
 
@@ -375,11 +320,6 @@ const tick = () => {
 
 	// Update controls
 	controls.update();
-
-	// Update objects gravity
-	
-
-
 
 	// Render
 	renderer.render(scene, camera);
