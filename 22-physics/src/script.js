@@ -358,17 +358,16 @@ const tick = () => {
 		// console.log(object.body.position)
 
 		// check if the object is outside of the boundary
-    if(object.mesh.position.x < -5 || object.mesh.position.x > 5 || object.mesh.position.z < -5 || object.mesh.position.z > 5) {
+    if(object.mesh.position.y < -150) {
       // // remove the object from the scene
-      // scene.remove(object.mesh);
-      // world.removeBody(object.body);
+      scene.remove(object.mesh);
+      world.removeBody(object.body);
 
-      // // remove the object from the objectsToUpdate array
-      // const index = objectsToUpdate.indexOf(object);
-      // objectsToUpdate.splice(index, 1);
+      // remove the object from the objectsToUpdate array
+      const index = objectsToUpdate.indexOf(object);
+      objectsToUpdate.splice(index, 1);
 
-			// object.body.applyImpulse(new CANNON.Vec3(0, -9.82, 0), object.body.position);
-
+			console.log('removed')
     }
 	}
 
