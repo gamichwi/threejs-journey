@@ -126,7 +126,7 @@ floorBody.addShape(floorShape);
 floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI * 0.5);
 world.addBody(floorBody);
 
-const floor = new THREE.Mesh(
+const floorTop = new THREE.Mesh(
 	new THREE.PlaneGeometry(10, 10),
 	new THREE.MeshStandardMaterial({
 		color: '#777777',
@@ -136,9 +136,23 @@ const floor = new THREE.Mesh(
 		envMapIntensity: 0.5,
 	})
 );
-floor.receiveShadow = true;
-floor.rotation.x = -Math.PI * 0.5;
-scene.add(floor);
+floorTop.receiveShadow = true;
+floorTop.rotation.x = -Math.PI * 0.5;
+
+const floorBottom = new THREE.Mesh(
+	new THREE.PlaneGeometry(10, 10),
+	new THREE.MeshStandardMaterial({
+		color: '#777777',
+		metalness: 0.3,
+		roughness: 0.4,
+		envMap: environmentMapTexture,
+		envMapIntensity: 0.5,
+	})
+);
+floorBottom.receiveShadow = true;
+floorBottom.rotation.x = Math.PI * 0.5;
+
+scene.add(floorTop, floorBottom);
 
 /**
  * Lights
