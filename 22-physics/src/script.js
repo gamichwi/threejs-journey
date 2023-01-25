@@ -67,7 +67,7 @@ const playHitSound = (collision) => {
 		hitSound.play();
 	}
 	if (impactStrength < 1.5) {
-		hitSound.volume = 0.01;
+		hitSound.volume = Math.random() * 0.05;
 		hitSound.currentTime = 0;
 		hitSound.play();
 	}
